@@ -31,8 +31,8 @@ xhr.onload = function () {
                                 </h2>
                             </div>
 
-                            <div id="collapse${index}" class="collapse newsBody" aria-labelledby="heading${index}" data-parent="#newsAccordion">
-                                <div class="cardBody"> ${element["content"]} . <a href="${element['url']}" target="_blank" >Read more here</a>  </div>
+                            <div id="collapse${index}" class="collapse" aria-labelledby="heading${index}" data-parent="#newsAccordion">
+                                <div class="cardBody p-3" > ${element["title"]} <hr> ${element["content"]} . <a href="${element['url']}" target="_blank" >Read more here</a>  </div>
                             </div>
                         </div>`;
             newsHtml += news;
@@ -53,16 +53,32 @@ function displayTime() {
 }
 setInterval(displayTime, 1000);
 
-//Search the notes
+//Search the news;
 let search = document.getElementById('searchTxt');
-search.addEventListener("input", function () {
-
-    let inputVal = search.value.toLowerCase().toUpperCase();
+let searchBtn = document.getElementById('searchBtn');
+searchBtn.addEventListener("click", function () {
+    let inputVal = search.value.toLowerCase();
     // console.log('Input event fired!', inputVal);
     let cards = document.getElementsByClassName('card');
     Array.from(cards).forEach(function (element) {
-        let cardBody = element.getElementsByClassName("newsBody")[0].innerText;
-        if (cardBody.includes(inputVal)) {
+        let cardBody = element.getElementsByClassName("cardBody")[0].innerText;
+        if (cardBody.toLowerCase().includes(inputVal)) {
+            element.style.display = "block";
+        }
+        else {
+            element.style.display = "none";
+        }
+    })
+})
+
+//Search the news;
+
+searchBtn.addEventListener("click", function () {
+    let inputVal = search.value.toLowerCase();
+    let cards = document.getElementsByClassName('card');
+    Array.from(cards).forEach(function (element) {
+        let cardBody = element.getElementsByClassName("cardBody")[0].innerText;
+        if (cardBody.toLowerCase().includes(inputVal)) {
             element.style.display = "block";
         }
         else {
